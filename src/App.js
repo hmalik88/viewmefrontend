@@ -1,28 +1,95 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import WelcomeContainer from './containers/WelcomeContainer'
+import CreateUserContainer from './containers/CreateUserContainer'
+import NavBar from './containers/NavBar'
+import HomeContainer from './containers/HomeContainer'
+import LoginPageContainer from './containers/LoginPageContainer'
+import DashboardContainer from './containers/DashboardContainer'
+import UserContentContainer from './containers/UserContentContainer'
+import UploadContentContainer from './containers/UploadContentContainer'
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {user: null}
+  }
+
+
+  handleLogin = e => {
+  e.preventDefault()
+  let email = e.target[0].value
+  let password = e.target[1].value
+  let login = {
+    user: {
+      "e_mail": email,
+      "password": password
+    }
+  }
+  this.setUser(login)
+  }
+
+  setUser = login => {
+    fetch('http://localhost:3000/api/v1/login', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(login)
+    })
+    .then(res => res.json())
+    .then(res => {
+      localStorage.setItem("token", res.jwt)
+      this.setState({user: res.user})
+    })
+    .then(() => {
+      this.props.history.push("/home")
+    })
+
+  }
+
+  logOut = () => {
+    localStorage.removeItem("token")
+    this.setState({user: null})
+  }
+
+  componentDidMount() {
+    let token = localStorage.getItem("token")
+    if (token !== null ) {
+      fetch('http://localhost:3000/api/v1/current_user', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Action: "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setState({user: res.user})
+    })
+  } else {
+    return <Redirect to="/login" />
+  }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+      <NavBar logOut={this.logOut} />
+      <Switch>
+      <Route path="/dashboard/content/upload" render={() => <UploadContentContainer user={this.state.user} />} />
+      <Route path="/dashboard/content" component={UserContentContainer} />
+      <Route path="/dashboard" component={DashboardContainer} />
+      <Route path="/signup" component={CreateUserContainer} />
+      <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
+      <Route path="/home" render={() => <HomeContainer user={this.state.user} />} />
+      <Route exact path="/" component={WelcomeContainer} />
+      </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
