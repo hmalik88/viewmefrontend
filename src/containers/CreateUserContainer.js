@@ -16,10 +16,12 @@ export default class CreateUserContainer extends React.Component {
       method: 'POST',
       body: JSON.stringify(new_user)
     })
+    .then(this.props.props.history.push("/login"))
   }
 
 
   render() {
+    console.log("CREATE USER MOUNTED")
     return(
       <div>
         <h1>Create Your Account</h1>

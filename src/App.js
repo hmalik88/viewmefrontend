@@ -9,12 +9,12 @@ import LoginPageContainer from './containers/LoginPageContainer'
 import DashboardContainer from './containers/DashboardContainer'
 import UserContentContainer from './containers/UserContentContainer'
 import UploadContentContainer from './containers/UploadContentContainer'
+
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {user: null}
   }
-
 
   handleLogin = e => {
   e.preventDefault()
@@ -55,6 +55,12 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("DID MOUNT")
+    this.getUser()
+  }
+
+
+  getUser = () => {
     let token = localStorage.getItem("token")
     if (token !== null ) {
       fetch('http://localhost:3000/api/v1/current_user', {
@@ -69,23 +75,24 @@ class App extends Component {
     .then(res => {
       this.setState({user: res.user})
     })
-  } else {
-    return <Redirect to="/login" />
-  }
+    } else {
+      return <Redirect to="/login" />
+    }
   }
 
   render() {
+    console.log(this.state.user)
     return (
       <div>
       <NavBar logOut={this.logOut} />
       <Switch>
-      <Route path="/dashboard/content/upload" render={() => <UploadContentContainer user={this.state.user} />} />
-      <Route path="/dashboard/content" component={UserContentContainer} />
-      <Route path="/dashboard" component={DashboardContainer} />
-      <Route path="/signup" component={CreateUserContainer} />
-      <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
-      <Route path="/home" render={() => <HomeContainer user={this.state.user} />} />
-      <Route exact path="/" component={WelcomeContainer} />
+        <Route path="/dashboard/content/upload" render={() => <UploadContentContainer user={this.state.user} />} />
+        <Route path="/dashboard/content" render={() => <UserContentContainer user={this.state.user} />} />
+        <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} />} />
+        <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
+        <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
+        <Route path="/home" render={() => <HomeContainer user={this.state.user} />} />
+        <Route path="/" component={WelcomeContainer} />
       </Switch>
       </div>
     );
