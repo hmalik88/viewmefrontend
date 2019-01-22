@@ -7,14 +7,13 @@ export default class UserContentContainer extends React.Component {
   state = {contents: null}
 
   componentDidMount() {
-    console.log("usercontent mounted", this.props.user)
     if (this.props.user) {
-      this.fetchUserContent(this.props.user.id)
+    this.fetchUserContent(this.props.user.id)
     }
   }
 
-
   fetchUserContent = (userId) => {
+
     fetch(`http://localhost:3000/api/v1/users/${userId}`, {
       method: 'GET',
       headers: {
@@ -27,16 +26,21 @@ export default class UserContentContainer extends React.Component {
   }
 
   render() {
+    let UserContent =
+            <React.Fragment>
+            <UserContentList contents={this.state.contents} />
+            <Link to="/dashboard/content/upload">Upload Content</Link>
+            </React.Fragment>
+    console.log(this.props.user)
     console.log(this.state.contents)
     return(
       <div>
         <br/>
-        {localStorage.token ? (
+        {this.props.user ? (
           <div>
-            <UserContentList contents={this.state.contents} />
-            <Link to="/dashboard/content/upload">Upload Content</Link>
+           {this.state.contents ? (<div>{UserContent}</div>) : (this.fetchUserContent(this.props.user.id))}
           </div>
-          ) : (null)}
+          ) : (this.props.getUser())}
       </div>
       )
   }

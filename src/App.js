@@ -80,15 +80,17 @@ class App extends Component {
     }
   }
 
+
+
   render() {
     console.log(this.state.user)
     return (
       <div>
       <NavBar logOut={this.logOut} />
       <Switch>
-        <Route path="/dashboard/content/upload" render={() => <UploadContentContainer user={this.state.user} />} />
-        <Route path="/dashboard/content" render={() => <UserContentContainer user={this.state.user} />} />
-        <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} />} />
+        <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />
+        <Route path="/dashboard/content" render={() => <UserContentContainer getUser={this.getUser} user={this.state.user} />} />
+        <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
         <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
         <Route path="/home" render={() => <HomeContainer user={this.state.user} />} />

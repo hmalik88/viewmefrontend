@@ -1,6 +1,5 @@
 import React from 'react'
 import UploadForm from '../components/UploadForm'
-import { Redirect } from 'react-router-dom'
 
 export default class UploadContentContainer extends React.Component {
 
@@ -37,7 +36,7 @@ export default class UploadContentContainer extends React.Component {
   render() {
     return(
       <div>
-        {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : <Redirect to="/login" /> }
+        {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : this.props.getUser() }
         {this.state.status ? (<p>{this.state.status}</p>) : (null)}
       </div>
       )

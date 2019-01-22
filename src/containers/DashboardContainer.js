@@ -1,19 +1,19 @@
 import React from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default class DashboardContainer extends React.Component {
 
-
   render() {
     console.log("DASH", this.props.user )
+    let dashboardContent =
+            <React.Fragment>
+              <Link to="/">Favorite Videos</Link><br/>
+              <Link to="/dashboard/content">Your Content</Link>
+            </React.Fragment>
     return(
       <div>
         <br/>
-        {localStorage.token ? (<div>
-            <Link to="/">Favorite Videos</Link><br/>
-            <Link to="/dashboard/content">Your Content</Link>
-          </div>) : (<Redirect to="/login" />)}
-
+        {this.props.user ? (<div>{dashboardContent}</div>) : (this.props.getUser())}
       </div>
       )
   }
