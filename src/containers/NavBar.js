@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom'
 export default class NavBar extends React.Component {
   render() {
     return(
-      <div>
-      <Link to="/login">Log In</Link><br/>
-      <Link to="/home">Home</Link><br/>
-      <Link to="/dashboard">Dashboard</Link><br/>
-      <Link to="/"><span onClick={this.props.logOut}>Log Out</span></Link>
-      </div>
+
+      <nav className="navbar navbar-default">
+  <div className="container-fluid">
+    <div className="navbar-header">
+      <a className="navbar-brand" href="/">ViewMe</a>
+    </div>
+    <ul className="nav navbar-nav">
+      <li><Link to="/home">Home</Link></li>
+      <li><Link to="/dashboard">Dashboard</Link></li>
+      {localStorage.token ? (
+        <li><Link to="/"><span onClick={this.props.logOut}>Log Out</span></Link></li>) : (
+        <li><Link to="/login">Log In</Link></li>
+        )}
+    </ul>
+  </div>
+</nav>
       )
   }
 }

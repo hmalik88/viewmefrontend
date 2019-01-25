@@ -9,6 +9,8 @@ import LoginPageContainer from './containers/LoginPageContainer'
 import DashboardContainer from './containers/DashboardContainer'
 import UserContentContainer from './containers/UserContentContainer'
 import UploadContentContainer from './containers/UploadContentContainer'
+import EditContentContainer from './containers/EditContentContainer.js'
+import VideoContainer from './containers/VideoContainer.js'
 
 class App extends Component {
   constructor(props) {
@@ -86,10 +88,12 @@ class App extends Component {
     console.log(this.state.user)
     return (
       <div>
-      <NavBar logOut={this.logOut} />
+      <NavBar user={this.state.user} logOut={this.logOut} />
       <Switch>
+        <Route path="/dashboard/content/edit/:videoID" render={() => <EditContentContainer props={this.props} getUser={this.getUser} user={this.state.user} />}  />
         <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />
         <Route path="/dashboard/content" render={() => <UserContentContainer getUser={this.getUser} user={this.state.user} />} />
+        <Route path="/watch/:videoID" render={() => <VideoContainer props={this.props} />} />
         <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
         <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
