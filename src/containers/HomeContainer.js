@@ -1,5 +1,5 @@
 import React from 'react'
-import ChannelsContainer from './ChannelsContainer'
+import ChannelsList from './ChannelsList'
 
 export default class HomeContainer extends React.Component {
   state = {contents: []}
@@ -32,7 +32,7 @@ export default class HomeContainer extends React.Component {
           {this.state.contents.length > 0 ? (
             <div>
               <h1>Welcome Home {this.props.user.first_name}!</h1>
-              <ChannelsContainer contents={this.state.contents} />
+              <ChannelsList contents={this.state.contents} />
             </div>
             ) : (this.fetchContent())}
           </div>

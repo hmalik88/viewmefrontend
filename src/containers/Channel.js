@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class ContentCardsContainer extends React.Component {
+export default class Channel extends React.Component {
   render() {
     return(
       <div>
