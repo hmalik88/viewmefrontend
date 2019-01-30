@@ -88,7 +88,7 @@ class App extends Component {
     console.log(this.state.user)
     return (
       <div>
-      <NavBar user={this.state.user} logOut={this.logOut} />
+      <NavBar logOut={this.logOut} />
       <Switch>
         <Route path="/dashboard/content/edit/:videoID" render={() => <EditContentContainer props={this.props} getUser={this.getUser} user={this.state.user} />}  />
         <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />
@@ -97,8 +97,8 @@ class App extends Component {
         <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
         <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
-        <Route path="/home" render={() => <HomeContainer user={this.state.user} />} />
-        <Route path="/" component={WelcomeContainer} />
+        <Route path="/home" render={() => <HomeContainer user={this.state.user} getUser={this.getUser} />} />
+        <Route path="/" render={() => <WelcomeContainer user={this.state.user} />} />
       </Switch>
       </div>
     );

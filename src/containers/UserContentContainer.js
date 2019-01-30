@@ -28,8 +28,8 @@ export default class UserContentContainer extends React.Component {
   render() {
     let UserContent =
             <React.Fragment>
-            <UserContentList contents={this.state.contents} />
-            <Link to="/dashboard/content/upload">Upload Content</Link>
+              <UserContentList contents={this.state.contents} />
+              <Link to="/dashboard/content/upload">Upload Content</Link>
             </React.Fragment>
     console.log(this.props.user)
     console.log(this.state.contents)

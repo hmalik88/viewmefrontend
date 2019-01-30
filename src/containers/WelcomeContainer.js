@@ -5,7 +5,7 @@ export default class WelcomeContainer extends React.Component {
     return(
       <div>
         <p>Welcome to ViewMe! ViewMe is a content streaming service providing video content for users. You can purchase content directly from users and have access to that content.</p>
-        <Link to="/login"><button>Login</button></Link>
+        {localStorage.token !== undefined ? (null) : (<Link to="/login"><button>Login</button></Link>)}
        <Link to="/signup"><button>Sign Up</button></Link>
       </div>
       )
