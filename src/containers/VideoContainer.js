@@ -9,13 +9,24 @@ export default class VideoContainer extends React.Component {
       contentID: contentID,
       url: '',
       name: '',
-      uploader: ''
+      uploader: '',
+      favorite: this.checkIfFavorite(contentID),
+      favoriteID: ''
     }
   }
 
-  componentDidMount() {
-    if (this.state.contentID) {
-      this.fetchContent(this.state.contentID)
+  checkIfFavorite = (id) => {
+    if (this.props.user) {
+      let favorite = this.props.user.favorites.filter(favorite => {
+        return favorite.content_id === parseInt(id)
+      })
+      console.log(this.props.user)
+      console.log(favorite)
+      if (favorite.length === 1) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
@@ -35,15 +46,73 @@ export default class VideoContainer extends React.Component {
     })
   }
 
-  addFavorite = () => {
-    let data = {
-      content_id: this.state.contentID,
-      user_id: this.props.user.user.id,
-      name: this.state.name
+  handleFavoriteClick = () => {
+    if (this.props.user && this.state.favorite) {
+      this.deleteFavorite()
+    } else if (this.props.user && !this.state.favorite) {
+      this.addFavorite()
     }
   }
 
+  deleteFavorite = () => {
+    let data = {
+      favorite: {
+        favorite_id: this.state.favoriteID
+      }
+    }
+    let favID = this.state.favoriteID;
+    fetch(`http://localhost:3000/api/v1/favorites/${favID}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(console.log)
+  }
+
+  addFavorite = () => {
+    let data = {
+      favorite: {
+      content_id: this.state.contentID,
+      user_id: this.props.user.user.id,
+      name: this.state.name
+      }
+    }
+    fetch('http://localhost:3000/api/v1/favorites', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(console.log)
+  }
+
+  reloadUser = () => {
+    this.props.getUser()
+    if (this.checkIfFavorite(this.state.contentID)) {
+      this.setState({favorite: true})
+    } else {
+      this.setState({favorite: false})
+    }
+  }
+
+  button = () => {
+    if (this.state.favorite === undefined) {
+      this.setState({favorite: this.checkIfFavorite(this.state.contentID)})
+    }
+    return <button onClick={this.addFavorite}>{this.state.favorite ? (
+      <div>Unfavorite</div>
+      ) : (<div>Favorite</div>)}</button>
+  }
+
   render() {
+    console.log(this.state.favorite)
     return(
       <div>
       {this.props.user ? (<div>
@@ -53,7 +122,7 @@ export default class VideoContainer extends React.Component {
           <br/>
           <h3>{this.state.name}</h3>
           <h4>Uploaded by: {this.state.uploader}</h4>
-          <button onClick={this.addFavorite}>Favorite</button>
+          {this.button()}
           </>) : (this.fetchContent(this.state.contentID))}
         </div>) : (this.props.getUser())}
       </div>

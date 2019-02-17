@@ -26,7 +26,7 @@ export default class UserContentCard extends React.Component {
     let newTo = { pathname: `/dashboard/content/edit/${videoID}`}
     return(
       <div>
-        <p>{this.props.content.name} <Link to={newTo}><button>Edit</button></Link> <button onClick={this.handleDelete}>Delete</button></p>
+        <p>{this.props.content.name} <Link to={newTo} style={{textDecoration: 'none', color: 'black'}}><button>Edit</button></Link> <button onClick={this.handleDelete}>Delete</button></p>
       </div>
       )
   }
