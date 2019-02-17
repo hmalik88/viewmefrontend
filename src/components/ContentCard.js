@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-export default class ContentCard extends React.Component {
 
+export default class ContentCard extends React.Component {
 
   render() {
     return(
