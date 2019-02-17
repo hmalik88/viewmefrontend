@@ -11,6 +11,7 @@ import UserContentContainer from './containers/UserContentContainer'
 import UploadContentContainer from './containers/UploadContentContainer'
 import EditContentContainer from './containers/EditContentContainer.js'
 import VideoContainer from './containers/VideoContainer.js'
+import FavoriteContentContainer from './containers/FavoriteContentContainer'
 
 class App extends Component {
   constructor(props) {
@@ -94,6 +95,7 @@ class App extends Component {
         <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />
         <Route path="/dashboard/content" render={() => <UserContentContainer getUser={this.getUser} user={this.state.user} />} />
         <Route path="/watch/:videoID" render={() => <VideoContainer props={this.props} user={this.state.user} getUser={this.getUser} />} />
+        <Route path="/favorites" render={() => <FavoriteContentContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
         <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />

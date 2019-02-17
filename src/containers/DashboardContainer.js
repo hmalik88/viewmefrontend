@@ -7,7 +7,7 @@ export default class DashboardContainer extends React.Component {
     console.log("DASH", this.props.user )
     let dashboardContent =
             <React.Fragment>
-              <Link to="/">Favorite Videos</Link><br/>
+              <Link to="/favorites">Favorite Videos</Link><br/>
               <Link to="/dashboard/content">Your Content</Link>
             </React.Fragment>
     return(
