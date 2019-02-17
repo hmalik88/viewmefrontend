@@ -12,7 +12,7 @@ export default class UploadContentContainer extends React.Component {
     data.append("name", state.name);
     data.append("channel", state.channel);
     data.append("clip", e.target[2].files[0]);
-    data.append("user_id", this.props.user.id);
+    data.append("user_id", this.props.user.user.id);
      fetch('http://localhost:3000/api/v1/content', {
       headers: {
         Authorization: `Bearer ${token}`

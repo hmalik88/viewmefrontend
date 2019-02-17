@@ -8,7 +8,7 @@ export default class UserContentContainer extends React.Component {
 
   componentDidMount() {
     if (this.props.user) {
-    this.fetchUserContent(this.props.user.id)
+    this.fetchUserContent(this.props.user.user.id)
     }
   }
 
@@ -38,7 +38,7 @@ export default class UserContentContainer extends React.Component {
         <br/>
         {this.props.user ? (
           <div>
-           {this.state.contents ? (<div>{UserContent}</div>) : (this.fetchUserContent(this.props.user.id))}
+           {this.state.contents ? (<div>{UserContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
           </div>
           ) : (this.props.getUser())}
       </div>

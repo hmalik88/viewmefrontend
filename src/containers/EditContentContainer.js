@@ -7,7 +7,7 @@ export default class EditContentContainer extends React.Component {
 
   componentDidMount() {
     if (this.props.user) {
-    this.fetchUserContent(this.props.user.id)
+    this.fetchUserContent(this.props.user.user.id)
     }
   }
 
@@ -63,7 +63,7 @@ export default class EditContentContainer extends React.Component {
         <br/>
         {this.props.user ? (
           <div>
-           {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.id))}
+           {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
           </div>
           ) : (this.props.getUser())}
       </div>

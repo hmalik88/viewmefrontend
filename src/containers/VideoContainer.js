@@ -36,16 +36,12 @@ export default class VideoContainer extends React.Component {
   render() {
     return(
       <div>
-      {this.state.url ? (
-        <div>
-          <VideoPlayer
-              controls={true}
-              src={this.state.url}
-              width="720"
-              height="480"
-          />
-        </div>) : (this.fetchContent(this.state.contentID))}
+      {this.props.user ? (<div>
+        {this.state.url ? (<div><VideoPlayer src={this.state.url} /></div>) : (this.fetchContent(this.state.contentID))}
+        </div>) : (this.props.getUser())}
 
+      <br/>
+      <button>Favorite</button>
       </div>
       )
   }

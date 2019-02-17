@@ -31,7 +31,7 @@ export default class HomeContainer extends React.Component {
           <div>
           {this.state.contents.length > 0 ? (
             <div>
-              <h1>Welcome Home {this.props.user.first_name}!</h1>
+              <h1>Welcome Home {this.props.user.user.first_name}!</h1>
               <ChannelsList contents={this.state.contents} />
             </div>
             ) : (this.fetchContent())}

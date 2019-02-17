@@ -43,7 +43,7 @@ class App extends Component {
     .then(res => res.json())
     .then(res => {
       localStorage.setItem("token", res.jwt)
-      this.setState({user: res.user})
+      this.setState({user: res})
     })
     .then(() => {
       this.props.history.push("/home")
@@ -75,7 +75,7 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(res => {
-      this.setState({user: res.user})
+      this.setState({user: res})
     })
     } else {
       return <Redirect to="/login" />
@@ -93,12 +93,12 @@ class App extends Component {
         <Route path="/dashboard/content/edit/:videoID" render={() => <EditContentContainer props={this.props} getUser={this.getUser} user={this.state.user} />}  />
         <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />
         <Route path="/dashboard/content" render={() => <UserContentContainer getUser={this.getUser} user={this.state.user} />} />
-        <Route path="/watch/:videoID" render={() => <VideoContainer props={this.props} />} />
+        <Route path="/watch/:videoID" render={() => <VideoContainer props={this.props} user={this.state.user} getUser={this.getUser} />} />
         <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
         <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
         <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
         <Route path="/home" render={() => <HomeContainer user={this.state.user} getUser={this.getUser} />} />
-        <Route path="/" render={() => <WelcomeContainer user={this.state.user} />} />
+        <Route path="/" component={WelcomeContainer} />
       </Switch>
       </div>
     );
