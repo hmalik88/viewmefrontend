@@ -10,8 +10,9 @@ export default class VideoContainer extends React.Component {
       url: '',
       name: '',
       uploader: '',
-      favorite: this.checkIfFavorite(contentID),
-      favoriteID: ''
+      favorite: '',
+      favoriteID: '',
+      user: this.props.user
     }
   }
 
@@ -20,9 +21,7 @@ export default class VideoContainer extends React.Component {
       let favorite = this.props.user.favorites.filter(favorite => {
         return favorite.content_id === parseInt(id)
       })
-      console.log(this.props.user)
-      console.log(favorite)
-      if (favorite.length === 1) {
+      if (favorite.length > 1) {
         return true;
       } else {
         return false;
@@ -47,9 +46,9 @@ export default class VideoContainer extends React.Component {
   }
 
   handleFavoriteClick = () => {
-    if (this.props.user && this.state.favorite) {
+    if (this.state.user && this.state.favorite) {
       this.deleteFavorite()
-    } else if (this.props.user && !this.state.favorite) {
+    } else if (this.state.user && !this.state.favorite) {
       this.addFavorite()
     }
   }
@@ -70,7 +69,9 @@ export default class VideoContainer extends React.Component {
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(json => {
+      this.setState({favorite: false})
+    })
   }
 
   addFavorite = () => {
@@ -90,7 +91,9 @@ export default class VideoContainer extends React.Component {
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(json => {
+      this.setState({favorite: true})
+    })
   }
 
   reloadUser = () => {
@@ -102,29 +105,39 @@ export default class VideoContainer extends React.Component {
     }
   }
 
+  setFavorite = () => {
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    this.setState({favorite: this.checkIfFavorite(contentID)})
+  }
+
   button = () => {
-    if (this.state.favorite === undefined) {
-      this.setState({favorite: this.checkIfFavorite(this.state.contentID)})
-    }
-    return <button onClick={this.addFavorite}>{this.state.favorite ? (
+    return <button onClick={this.handleFavoriteClick}>{this.state.favorite ? (
       <div>Unfavorite</div>
       ) : (<div>Favorite</div>)}</button>
   }
 
+  componentDidMount() {
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    if (this.props.user === null) {
+      this.props.getUser()
+      .then(this.fetchContent(contentID))
+    }
+  }
+
   render() {
-    console.log(this.state.favorite)
+    console.log("Inside Video Component")
     return(
       <div>
-      {this.props.user ? (<div>
         {this.state.url ? (
           <>
           <VideoPlayer src={this.state.url} />
           <br/>
           <h3>{this.state.name}</h3>
           <h4>Uploaded by: {this.state.uploader}</h4>
-          {this.button()}
-          </>) : (this.fetchContent(this.state.contentID))}
-        </div>) : (this.props.getUser())}
+          {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? ("UNFAVORITE") : ("FAVORITE") }
+          </>) : (
+            <h1>Not Content</h1>
+          )}
       </div>
       )
   }

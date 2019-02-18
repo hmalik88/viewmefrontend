@@ -66,7 +66,7 @@ class App extends Component {
   getUser = () => {
     let token = localStorage.getItem("token")
     if (token !== null ) {
-      fetch('http://localhost:3000/api/v1/current_user', {
+    return fetch('http://localhost:3000/api/v1/current_user', {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
@@ -86,6 +86,7 @@ class App extends Component {
 
 
   render() {
+    console.log("Inside App")
     console.log(this.state.user)
     return (
       <div>
