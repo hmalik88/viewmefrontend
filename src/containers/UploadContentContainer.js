@@ -33,10 +33,14 @@ export default class UploadContentContainer extends React.Component {
     .catch(error => this.setState({status: error[0]}))
   }
 
+  getUser = () => {
+    this.props.getUser()
+  }
+
   render() {
     return(
       <div>
-        {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : this.props.getUser() }
+        {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : (this.getUser()) }
         {this.state.status ? (<p>{this.state.status}</p>) : (null)}
       </div>
       )

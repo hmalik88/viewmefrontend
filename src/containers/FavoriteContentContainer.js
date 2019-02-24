@@ -7,6 +7,10 @@ export default class FavoriteContentContainer extends React.Component {
     this.props.getUser()
   }
 
+  componentDidMount() {
+      this.props.getUser()
+  }
+
   render() {
     console.log(this.props.user)
     return(

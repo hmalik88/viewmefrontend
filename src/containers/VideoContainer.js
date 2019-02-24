@@ -21,7 +21,7 @@ export default class VideoContainer extends React.Component {
       let favorite = this.props.user.favorites.filter(favorite => {
         return favorite.content_id === parseInt(id)
       })
-      if (favorite.length > 1) {
+      if (favorite.length === 1) {
         return true;
       } else {
         return false;
@@ -45,14 +45,17 @@ export default class VideoContainer extends React.Component {
     })
   }
 
-  deleteFavorite = () => {
+  deleteFavorite = e => {
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    let favorite = this.props.user.favorites.filter(favorite => {
+      return favorite.content_id === parseInt(contentID)
+    })[0]
     let data = {
       favorite: {
-        favorite_id: this.state.favoriteID
+        favorite_id: favorite.id
       }
     }
-    let favID = this.state.favoriteID;
-    fetch(`http://localhost:3000/api/v1/favorites/${favID}`, {
+    fetch(`http://localhost:3000/api/v1/favorites/${favorite.id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -62,11 +65,11 @@ export default class VideoContainer extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      this.setState({favorite: false})
+      this.props.getUser()
     })
   }
 
-  addFavorite = () => {
+  addFavorite = e => {
     let data = {
       favorite: {
       content_id: this.state.contentID,
@@ -84,8 +87,9 @@ export default class VideoContainer extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      this.setState({favorite: true, favID: json.favorite.id})
+      this.props.getUser()
     })
+
   }
 
   componentDidMount() {
@@ -97,9 +101,9 @@ export default class VideoContainer extends React.Component {
   }
 
   render() {
-    console.log("Inside Video Component")
+    console.log(this.state.favorite)
     return(
-      <div>
+      <div id="video">
         {this.state.url ? (
           <>
           <VideoPlayer src={this.state.url} />
