@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 
 export default class DashboardContainer extends React.Component {
 
+  getUser = () => {
+    this.props.getUser()
+  }
+
   render() {
     console.log("DASH", this.props.user )
     let dashboardContent =
@@ -13,7 +17,7 @@ export default class DashboardContainer extends React.Component {
     return(
       <div>
         <br/>
-        {this.props.user ? (<div>{dashboardContent}</div>) : (this.props.getUser())}
+        {this.props.user ? (<div>{dashboardContent}</div>) : (this.getUser())}
       </div>
       )
   }

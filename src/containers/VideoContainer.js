@@ -45,14 +45,6 @@ export default class VideoContainer extends React.Component {
     })
   }
 
-  handleFavoriteClick = () => {
-    if (this.state.user && this.state.favorite) {
-      this.deleteFavorite()
-    } else if (this.state.user && !this.state.favorite) {
-      this.addFavorite()
-    }
-  }
-
   deleteFavorite = () => {
     let data = {
       favorite: {
@@ -92,28 +84,8 @@ export default class VideoContainer extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      this.setState({favorite: true})
+      this.setState({favorite: true, favID: json.favorite.id})
     })
-  }
-
-  reloadUser = () => {
-    this.props.getUser()
-    if (this.checkIfFavorite(this.state.contentID)) {
-      this.setState({favorite: true})
-    } else {
-      this.setState({favorite: false})
-    }
-  }
-
-  setFavorite = () => {
-    let contentID = this.props.props.location.pathname.split('/')[2]
-    this.setState({favorite: this.checkIfFavorite(contentID)})
-  }
-
-  button = () => {
-    return <button onClick={this.handleFavoriteClick}>{this.state.favorite ? (
-      <div>Unfavorite</div>
-      ) : (<div>Favorite</div>)}</button>
   }
 
   componentDidMount() {
@@ -134,12 +106,11 @@ export default class VideoContainer extends React.Component {
           <br/>
           <h3>{this.state.name}</h3>
           <h4>Uploaded by: {this.state.uploader}</h4>
-          {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? ("UNFAVORITE") : ("FAVORITE") }
+          {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? (<button onClick={this.deleteFavorite}>Unfavorite</button>) : (<button onClick={this.addFavorite}>Favorite</button>) }
           </>) : (
-            <h1>Not Content</h1>
+            this.fetchContent(this.state.contentID)
           )}
       </div>
       )
   }
-
 }

@@ -4,6 +4,10 @@ import UserContentList from './UserContentList'
 
 export default class UserContentContainer extends React.Component {
 
+  getUser = () => {
+    this.props.getUser();
+  }
+
   render() {
     console.log(this.props.user)
     return(
@@ -14,7 +18,7 @@ export default class UserContentContainer extends React.Component {
            <UserContentList contents={this.props.user.contents} />
            <Link to="/dashboard/content/upload">Upload Content</Link>
           </div>
-          ) : (this.props.getUser())}
+          ) : (this.getUser())}
       </div>
       )
   }

@@ -3,6 +3,10 @@ import FavoriteContentList from './FavoriteContentList'
 
 export default class FavoriteContentContainer extends React.Component {
 
+  getUser = () => {
+    this.props.getUser()
+  }
+
   render() {
     console.log(this.props.user)
     return(
@@ -12,7 +16,7 @@ export default class FavoriteContentContainer extends React.Component {
         <h1>Your Favorites</h1>
         <FavoriteContentList favorites={this.props.user.favorites} />
         </div>
-        ) : (this.props.getUser())}
+        ) : (this.getUser())}
       </div>
       )
   }
