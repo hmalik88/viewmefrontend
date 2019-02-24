@@ -46,14 +46,6 @@ export default class VideoContainer extends React.Component {
     })
   }
 
-  handleFavoriteClick = () => {
-    if (this.props.user && this.state.favorite) {
-      this.deleteFavorite()
-    } else if (this.props.user && !this.state.favorite) {
-      this.addFavorite()
-    }
-  }
-
   deleteFavorite = () => {
     let data = {
       favorite: {
@@ -106,9 +98,10 @@ export default class VideoContainer extends React.Component {
     if (this.state.favorite === undefined) {
       this.setState({favorite: this.checkIfFavorite(this.state.contentID)})
     }
-    return <button onClick={this.addFavorite}>{this.state.favorite ? (
-      <div>Unfavorite</div>
-      ) : (<div>Favorite</div>)}</button>
+    if (this.state.favorite) {
+      return <button onClick={this.deleteFavorite}>Unfavorite</button>
+    }
+    return <button onClick={this.addFavorite}>Favorite</button>
   }
 
   render() {
