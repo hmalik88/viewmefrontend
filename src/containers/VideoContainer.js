@@ -10,8 +10,9 @@ export default class VideoContainer extends React.Component {
       url: '',
       name: '',
       uploader: '',
-      favorite: this.checkIfFavorite(contentID),
-      favoriteID: ''
+      favorite: '',
+      favoriteID: '',
+      user: this.props.user
     }
   }
 
@@ -20,8 +21,6 @@ export default class VideoContainer extends React.Component {
       let favorite = this.props.user.favorites.filter(favorite => {
         return favorite.content_id === parseInt(id)
       })
-      console.log(this.props.user)
-      console.log(favorite)
       if (favorite.length === 1) {
         return true;
       } else {
@@ -46,14 +45,17 @@ export default class VideoContainer extends React.Component {
     })
   }
 
-  deleteFavorite = () => {
+  deleteFavorite = e => {
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    let favorite = this.props.user.favorites.filter(favorite => {
+      return favorite.content_id === parseInt(contentID)
+    })[0]
     let data = {
       favorite: {
-        favorite_id: this.state.favoriteID
+        favorite_id: favorite.id
       }
     }
-    let favID = this.state.favoriteID;
-    fetch(`http://localhost:3000/api/v1/favorites/${favID}`, {
+    fetch(`http://localhost:3000/api/v1/favorites/${favorite.id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -62,10 +64,12 @@ export default class VideoContainer extends React.Component {
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(json => {
+      this.props.getUser()
+    })
   }
 
-  addFavorite = () => {
+  addFavorite = e => {
     let data = {
       favorite: {
       content_id: this.state.contentID,
@@ -82,44 +86,35 @@ export default class VideoContainer extends React.Component {
       body: JSON.stringify(data)
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(json => {
+      this.props.getUser()
+    })
+
   }
 
-  reloadUser = () => {
-    this.props.getUser()
-    if (this.checkIfFavorite(this.state.contentID)) {
-      this.setState({favorite: true})
-    } else {
-      this.setState({favorite: false})
+  componentDidMount() {
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    if (this.props.user === null) {
+      this.props.getUser()
+      .then(this.fetchContent(contentID))
     }
-  }
-
-  button = () => {
-    if (this.state.favorite === undefined) {
-      this.setState({favorite: this.checkIfFavorite(this.state.contentID)})
-    }
-    if (this.state.favorite) {
-      return <button onClick={this.deleteFavorite}>Unfavorite</button>
-    }
-    return <button onClick={this.addFavorite}>Favorite</button>
   }
 
   render() {
     console.log(this.state.favorite)
     return(
-      <div>
-      {this.props.user ? (<div>
+      <div id="video">
         {this.state.url ? (
           <>
           <VideoPlayer src={this.state.url} />
           <br/>
           <h3>{this.state.name}</h3>
           <h4>Uploaded by: {this.state.uploader}</h4>
-          {this.button()}
-          </>) : (this.fetchContent(this.state.contentID))}
-        </div>) : (this.props.getUser())}
+          {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? (<button onClick={this.deleteFavorite}>Unfavorite</button>) : (<button onClick={this.addFavorite}>Favorite</button>) }
+          </>) : (
+            this.fetchContent(this.state.contentID)
+          )}
       </div>
       )
   }
-
 }

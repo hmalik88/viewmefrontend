@@ -22,6 +22,10 @@ export default class HomeContainer extends React.Component {
     .then(json => this.setState({contents: json.data}))
   }
 
+  getUser = () => {
+    this.props.getUser()
+  }
+
   render() {
     console.log(this.props.user)
     console.log(this.state.contents)
@@ -36,7 +40,7 @@ export default class HomeContainer extends React.Component {
             </div>
             ) : (this.fetchContent())}
           </div>
-          ) : (this.props.getUser()) }
+          ) : (this.getUser()) }
       </div>
       )
   }
