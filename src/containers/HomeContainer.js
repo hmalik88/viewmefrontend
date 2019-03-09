@@ -1,5 +1,7 @@
 import React from 'react'
 import ChannelsList from './ChannelsList'
+import { Grid } from 'semantic-ui-react'
+import NavBar from './NavBar'
 
 export default class HomeContainer extends React.Component {
   state = {contents: []}
@@ -19,7 +21,9 @@ export default class HomeContainer extends React.Component {
       }
     })
     .then(res => res.json())
-    .then(json => this.setState({contents: json.data}))
+    .then(json => {
+      this.setState({contents: json})
+  })
   }
 
   getUser = () => {
@@ -34,13 +38,22 @@ export default class HomeContainer extends React.Component {
         {this.props.user ? (
           <div>
           {this.state.contents.length > 0 ? (
-            <div>
-              <h1>Welcome Home {this.props.user.user.first_name}!</h1>
-              <ChannelsList contents={this.state.contents} />
-            </div>
+            <>
+            <Grid padded container style={{height: '100vh', width: '12.5vh'}}>
+              <Grid.Row stretched style={{height: '100%'}}>
+                <Grid.Column textAlign='center' width={2}>
+                  <NavBar />
+                </Grid.Column>
+                <Grid.Column width={14}>
+                 <h1 id="welcome">Welcome Home {this.props.user.user.first_name}!</h1>
+                 <ChannelsList contents={this.state.contents} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+              </>
             ) : (this.fetchContent())}
           </div>
-          ) : (this.getUser()) }
+          ): (this.getUser())}
       </div>
       )
   }

@@ -1,14 +1,15 @@
 import React from 'react'
 import Channel from './Channel'
 
+
 export default class ChannelsList extends React.Component {
 
   constructor(props) {
     super(props)
     let channels = []
     this.props.contents.forEach(content => {
-      if (!channels.includes(content.attributes.channel)) {
-        channels.push(content.attributes.channel)
+      if (!channels.includes(content.channel)) {
+        channels.push(content.channel)
       }
     })
     this.state = {
@@ -18,7 +19,9 @@ export default class ChannelsList extends React.Component {
 
 
   render() {
-    let channels = this.state.channels.map(channel => <Channel key={channel} content={this.props.contents} channel={channel} />)
+    let channels = this.state.channels.map(channel => {
+      return <Channel key={channel} content={this.props.contents} channel={channel} />
+  })
     return(
       <div>
         {channels}

@@ -1,5 +1,6 @@
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
+import Icon from '@material-ui/core/Icon'
 
 export default class VideoContainer extends React.Component {
   constructor(props) {
@@ -111,6 +112,8 @@ export default class VideoContainer extends React.Component {
           <h3>{this.state.name}</h3>
           <h4>Uploaded by: {this.state.uploader}</h4>
           {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? (<button onClick={this.deleteFavorite}>Unfavorite</button>) : (<button onClick={this.addFavorite}>Favorite</button>) }
+            <br/>
+          <Icon>star</Icon>
           </>) : (
             this.fetchContent(this.state.contentID)
           )}

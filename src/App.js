@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, Switch, Redirect, withRouter} from 'react-router-dom';
 import WelcomeContainer from './containers/WelcomeContainer'
 import CreateUserContainer from './containers/CreateUserContainer'
-import NavBar from './containers/NavBar'
 import HomeContainer from './containers/HomeContainer'
 import LoginPageContainer from './containers/LoginPageContainer'
 import DashboardContainer from './containers/DashboardContainer'
@@ -52,16 +50,10 @@ class App extends Component {
 
   }
 
-  logOut = () => {
-    localStorage.removeItem("token")
-    this.setState({user: null})
-  }
-
   componentDidMount() {
     console.log("DID MOUNT")
     this.getUser()
   }
-
 
   getUser = () => {
     let token = localStorage.getItem("token")
@@ -83,14 +75,11 @@ class App extends Component {
     }
   }
 
-
-
   render() {
     console.log("Inside App")
     console.log(this.state.user)
     return (
       <div>
-      <NavBar logOut={this.logOut} />
       <Switch>
         <Route path="/dashboard/content/edit/:videoID" render={() => <EditContentContainer props={this.props} getUser={this.getUser} user={this.state.user} />}  />
         <Route path="/dashboard/content/upload" render={() => <UploadContentContainer getUser={this.getUser} user={this.state.user} />} />

@@ -7,6 +7,12 @@ export default class DashboardContainer extends React.Component {
     this.props.getUser()
   }
 
+  componentDidMount() {
+    if (!this.props.user === null) {
+      this.props.getUser()
+    }
+  }
+
   render() {
     console.log("DASH", this.props.user )
     let dashboardContent =

@@ -1,5 +1,7 @@
 import React from 'react'
 import CreateUserForm from '../components/CreateUserForm'
+import { Grid } from 'semantic-ui-react'
+import NavBar from './NavBar'
 
 export default class CreateUserContainer extends React.Component {
 
@@ -23,10 +25,24 @@ export default class CreateUserContainer extends React.Component {
   render() {
     console.log("CREATE USER MOUNTED")
     return(
-      <div>
-        <h1>Create Your Account</h1>
-        <CreateUserForm handleSubmit={this.handleSubmit} />
-      </div>
+      <Grid padded container style={{height: '100vh'}}>
+        <Grid.Row stretched style={{height: '100%'}}>
+          <Grid.Column textAlign='center' width={2}>
+            <NavBar />
+          </Grid.Column>
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column textAlign='center' width={4}>
+            <Grid.Row style={{height: '10%'}}>
+              <h1>Create An Account</h1>
+            </Grid.Row>
+            <Grid.Row style={{height: '90%'}}>
+             <CreateUserForm handleSubmit={this.handleSubmit} />
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column width={2}></Grid.Column>
+        </Grid.Row>
+      </Grid>
       )
   }
 }
