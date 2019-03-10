@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import NavBar from './NavBar'
+import { Grid } from 'semantic-ui-react'
 
 export default class DashboardContainer extends React.Component {
 
@@ -15,16 +17,26 @@ export default class DashboardContainer extends React.Component {
 
   render() {
     console.log("DASH", this.props.user )
-    let dashboardContent =
-            <React.Fragment>
-              <Link to="/favorites">Favorite Videos</Link><br/>
-              <Link to="/dashboard/content">Your Content</Link>
-            </React.Fragment>
     return(
-      <div>
-        <br/>
-        {this.props.user ? (<div>{dashboardContent}</div>) : (this.getUser())}
-      </div>
+      <Grid padded container style={{height: '100vh'}}>
+        <Grid.Row stretched style={{height: '100%'}}>
+          <Grid.Column textAlign='center' width={2}>
+            <NavBar />
+          </Grid.Column>
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column textAlign='center' width={4}>
+            <Grid.Row style={{height: '25%'}}>
+              <h1>Dashboard</h1>
+            </Grid.Row>
+            <Grid.Row style={{height: '75%'}}>
+             <Link to="/favorites">Favorite Videos</Link><br/>
+             <Link to="/dashboard/content">Your Content</Link>
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column width={2}></Grid.Column>
+        </Grid.Row>
+      </Grid>
       )
   }
 }

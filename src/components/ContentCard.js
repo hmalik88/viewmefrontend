@@ -16,6 +16,7 @@ export default class ContentCard extends React.Component {
   }
 
   handlePlay = e => {
+      // for when it becomes socially acceptable to suprise people with music =D
       // if (this.props.content.channel === 'Music') {
       //   e.target.muted = false;
       // }
