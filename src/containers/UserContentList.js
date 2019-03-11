@@ -1,17 +1,16 @@
 import React from 'react'
 import UserContentCard from '../components/UserContentCard'
+import { List } from 'semantic-ui-react'
 
 export default class UserContentList extends React.Component {
   render() {
     let userContent = this.props.contents.map(content => {
-      return <li key={content.id}><UserContentCard content={content} /></li>
+      return <UserContentCard content={content} />
     })
     return(
-      <div>
-        <ul>
+        <List padded celled horizontal>
           {userContent}
-        </ul>
-      </div>
+        </List>
       )
     }
 }

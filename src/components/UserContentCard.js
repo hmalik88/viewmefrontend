@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Button, List } from 'semantic-ui-react'
 
 
 export default class UserContentCard extends React.Component {
 
   handleDelete = e => {
-    let li = e.target.parentElement.parentElement.parentElement
     let videoID = this.props.content.id
+    let item = document.getElementById(videoID)
     let token = localStorage.getItem("token")
     fetch(`http://localhost:3000/api/v1/content/${videoID}`, {
       method: 'DELETE',
@@ -17,7 +18,7 @@ export default class UserContentCard extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      li.remove()
+      item.remove()
     })
   }
 
@@ -25,9 +26,12 @@ export default class UserContentCard extends React.Component {
     let videoID = this.props.content.id
     let newTo = { pathname: `/dashboard/content/edit/${videoID}`}
     return(
-      <div>
-        <p>{this.props.content.name} <Link to={newTo} style={{textDecoration: 'none', color: 'black'}}><button>Edit</button></Link> <button onClick={this.handleDelete}>Delete</button></p>
-      </div>
+      <List.Item id={videoID}>
+        <List.Content>
+         <List.Header>{this.props.content.name}</List.Header>
+         <Link to={newTo} style={{textDecoration: 'none', color: 'black'}}><Button size='tiny'>Edit</Button></Link><Button size='tiny' onClick={this.handleDelete}>Delete</Button>
+        </List.Content>
+      </List.Item>
       )
   }
 }

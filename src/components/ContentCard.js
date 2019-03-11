@@ -33,7 +33,6 @@ export default class ContentCard extends React.Component {
     e.target.pause()
   }
 
-
   render() {
     return(
       <Card fluid>
