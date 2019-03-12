@@ -1,5 +1,7 @@
 import React from 'react'
 import UploadForm from '../components/UploadForm'
+import NavBar from './NavBar'
+import { Grid } from 'semantic-ui-react'
 
 export default class UploadContentContainer extends React.Component {
 
@@ -39,10 +41,24 @@ export default class UploadContentContainer extends React.Component {
 
   render() {
     return(
-      <div>
-        {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : (this.getUser()) }
-        {this.state.status ? (<p>{this.state.status}</p>) : (null)}
-      </div>
+      <Grid padded container style={{height: '100vh'}}>
+        <Grid.Row stretched style={{height: '100%'}}>
+          <Grid.Column textAlign='center' width={2}>
+            <NavBar />
+          </Grid.Column>
+          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column textAlign='center' width={8}>
+            <Grid.Row style={{height: '20%'}}>
+              <h1>Upload Content</h1>
+            </Grid.Row>
+            <Grid.Row style={{height: '80%'}}>
+              {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : (this.getUser()) }
+              {this.state.status ? (<p>{this.state.status}</p>) : (null)}
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={2}></Grid.Column>
+        </Grid.Row>
+      </Grid>
       )
   }
 }
