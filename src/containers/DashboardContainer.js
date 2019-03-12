@@ -23,7 +23,7 @@ export default class DashboardContainer extends React.Component {
           <Grid.Column textAlign='center' width={2}>
             <NavBar />
           </Grid.Column>
-          <Grid.Column width={4}></Grid.Column>
+          <Grid.Column width={5}></Grid.Column>
           <Grid.Column textAlign='center' width={4}>
             <Grid.Row style={{height: '25%'}}>
               <h1>Dashboard</h1>
@@ -33,8 +33,7 @@ export default class DashboardContainer extends React.Component {
              <Link to="/dashboard/content">Your Content</Link>
             </Grid.Row>
           </Grid.Column>
-          <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={2}></Grid.Column>
+          <Grid.Column width={5}></Grid.Column>
         </Grid.Row>
       </Grid>
       )

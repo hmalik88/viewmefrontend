@@ -47,8 +47,8 @@ export default class UploadContentContainer extends React.Component {
           <Grid.Column textAlign='center' width={2}>
             <NavBar />
           </Grid.Column>
-          <Grid.Column width={4}></Grid.Column>
-          <Grid.Column className='content-column' textAlign='center' width={8}>
+          <Grid.Column width={2}></Grid.Column>
+          <Grid.Column className='content-column' textAlign='center' width={10}>
             <Grid.Row style={{height: '20%'}}>
               <h1>Upload Content</h1>
             </Grid.Row>

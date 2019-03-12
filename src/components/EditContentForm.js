@@ -1,4 +1,5 @@
 import React from 'react'
+import { Form, Button, Icon} from 'semantic-ui-react'
 
 export default class EditContentForm extends React.Component {
 
@@ -15,14 +16,19 @@ export default class EditContentForm extends React.Component {
     let channel = this.props.content[0].channel
     let name = this.props.content[0].name
     return(
-      <div>
-      <br/>
-        <form onSubmit={e => this.props.handleEdit(e, this.state)}>
-          Edit Name: <input onChange={this.handleChange} name="name" id="name" type="text" value={this.state.name} placeholder={name} /><br/>
-          Edit Channel: <input onChange={this.handleChange} name="channel" id="channel" type="text" value={this.state.channel} placeholder={channel} /><br/>
-          <input type="submit" value="Edit Video" />
-        </form>
-      </div>
+      <Form className='edit-form' onSubmit={e => this.props.handleUpload(e, this.state)}>
+        <Form.Field inline width={16}>
+          <label>Edit Name</label>
+          <input onChange={this.handleChange} name="name" id="name" type="text" value={this.state.name} placeholder={name} />
+        </Form.Field>
+        <Form.Field inline width={16}>
+          <label>Edit Channel</label>
+          <input onChange={this.handleChange} name="channel" id="channel" type="text" value={this.state.channel} placeholder={channel} />
+        </Form.Field>
+        <Button positive icon size='massive' className='edit-button'>
+          <Icon size='large' name='edit'/>
+        </Button>
+      </Form>
       )
   }
 }

@@ -20,10 +20,9 @@ export default class UserContentContainer extends React.Component {
                 <Grid.Column textAlign='center' width={2}>
                   <NavBar />
                 </Grid.Column>
-                <Grid.Column width={2}></Grid.Column>
-                <Grid.Column textAlign='center' width={12}>
+                <Grid.Column textAlign='center' width={14}>
                   <Grid.Row style={{height: '10%'}}>
-                    <h1>Dashboard</h1>
+                    <h1>Your Content</h1>
                   </Grid.Row>
                   <Grid.Row stretched style={{height: '40%'}}>
                     <Link to="/dashboard/content/upload">Upload Content</Link><br/><br/>

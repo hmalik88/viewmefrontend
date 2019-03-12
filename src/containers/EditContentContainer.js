@@ -1,11 +1,16 @@
 import React from 'react'
 import EditContentForm from '../components/EditContentForm'
+import NavBar from './NavBar'
+import { Grid } from 'semantic-ui-react'
 
 export default class EditContentContainer extends React.Component {
 
   state = {content: null}
 
   componentDidMount() {
+    if (!this.props.user) {
+      this.props.getUser()
+    }
     if (this.props.user) {
     this.fetchUserContent(this.props.user.user.id)
     }
@@ -51,6 +56,10 @@ export default class EditContentContainer extends React.Component {
     })
   }
 
+  getUser = () => {
+    this.props.getUser();
+  }
+
   render() {
     console.log(this.state.content)
     let EditContent =
@@ -59,14 +68,27 @@ export default class EditContentContainer extends React.Component {
       </React.Fragment>
 
     return(
-      <div>
-        <br/>
-        {this.props.user ? (
-          <div>
-           {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
-          </div>
-          ) : (this.props.getUser())}
-      </div>
+      <Grid padded container style={{height: '100vh'}}>
+        <Grid.Row stretched style={{height: '100%'}}>
+          <Grid.Column textAlign='center' width={2}>
+            <NavBar />
+          </Grid.Column>
+          <Grid.Column width={5}></Grid.Column>
+          <Grid.Column textAlign='center' width={4}>
+            <Grid.Row style={{height: '15%'}}>
+              <h1>Edit Content</h1>
+            </Grid.Row>
+            <Grid.Row style={{height: '85%'}}>
+              {this.props.user ? (
+                <div>
+                  {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
+                </div>
+                ) : (this.getUser())}
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column width={5}></Grid.Column>
+        </Grid.Row>
+      </Grid>
       )
   }
 }
