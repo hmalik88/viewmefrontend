@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Grid, Button } from 'semantic-ui-react'
+import { Form, Grid, Icon, Button } from 'semantic-ui-react'
 import '../scss/UploadForm.scss'
 
 export default class UploadForm extends React.Component {
@@ -31,7 +31,9 @@ export default class UploadForm extends React.Component {
             <label>Video</label>
             <input onChange={this.handleFileChange} id="file" type="file" name="clip" accept="video/*" />
           </Form.Field>
-          <Button className='upload-button' type='Submit'>Submit</Button>
+          <Button positive icon size='massive' className='upload-button'>
+            <Icon size='large' name='cloud upload'/>
+          </Button>
         </Form>
       )
   }
