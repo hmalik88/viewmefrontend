@@ -2,6 +2,7 @@ import React from 'react'
 import UploadForm from '../components/UploadForm'
 import NavBar from './NavBar'
 import { Grid } from 'semantic-ui-react'
+import '../scss/UploadForm.scss'
 
 export default class UploadContentContainer extends React.Component {
 
@@ -47,7 +48,7 @@ export default class UploadContentContainer extends React.Component {
             <NavBar />
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column textAlign='center' width={8}>
+          <Grid.Column className='content-column' textAlign='center' width={8}>
             <Grid.Row style={{height: '20%'}}>
               <h1>Upload Content</h1>
             </Grid.Row>
