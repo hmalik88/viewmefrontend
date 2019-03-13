@@ -1,5 +1,5 @@
 .upload-button {
-  padding-left: 50px;
+  margin-left: 25px !important;
 }
 
 .upload-form {
@@ -7,12 +7,6 @@
   flex-flow: row wrap;
   justify-content:  center;
 }
-
-// .content-column {
-//   display: flex;
-//   flex-flow: row wrap;
-//   justify-content: center;
-// }
 
 .headertxt {
   text-align: center;
@@ -23,23 +17,12 @@
 
 }
 
-.form_column {
-  // border-left-style: double;
-  // border-right: double;
-  // border-color: black;
-  background-color: white;
-  border-radius: 10px;
-  // padding: 10px;
-  // margin-left: 10px !important;
-}
-
-
 label {
   margin-left: 10px !important;
   }
 
-  .upload-content {
-    float: right;
-    padding-left: 10px;
-    padding-top: 5px;
-  }
+.upload-content {
+  float: right;
+  padding-left: 10px;
+  padding-top: 5px;
+}

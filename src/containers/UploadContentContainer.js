@@ -11,6 +11,12 @@ export default class UploadContentContainer extends React.Component {
   handleUpload = (e, state)  => {
     e.preventDefault()
     e.persist()
+    let classList = [...e.target[3].classList]
+    if (classList.includes('negative')) {
+      e.target[3].classList.remove('negative')
+    } else if (classList.includes('positive')) {
+      e.target[3].classList.remove('positive')
+    }
     e.target.classList.add('loading')
     const data = new FormData();
     let token = localStorage.getItem("token")
@@ -27,7 +33,7 @@ export default class UploadContentContainer extends React.Component {
     })
     .then(res => {
       if (res.ok) {
-        console.log(res.json())
+        console.log(res.ok)
         return res.json()
 
       } else {
@@ -38,7 +44,10 @@ export default class UploadContentContainer extends React.Component {
       e.target.classList.remove('loading')
       e.target[3].classList.add('positive')
     })
-    .catch(error => e.target[3].classList.add('negative'))
+    .catch(error => {
+      e.target.classList.remove('loading')
+      e.target[3].classList.add('negative')
+    })
   }
 
   getUser = () => {
