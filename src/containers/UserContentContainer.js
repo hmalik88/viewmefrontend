@@ -21,14 +21,13 @@ export default class UserContentContainer extends React.Component {
                   <NavBar />
                 </Grid.Column>
                 <Grid.Column textAlign='center' width={14}>
-                  <Grid.Row style={{height: '10%'}}>
+                  <Grid.Row style={{height: '2.5%'}}>
                     <h1>Your Content</h1>
                   </Grid.Row>
-                  <Grid.Row stretched style={{height: '40%'}}>
+                  <Grid.Row stretched style={{height: '97.5%'}}>
                     <Link to="/dashboard/content/upload">Upload Content</Link><br/><br/>
-                    <UserContentList contents={this.props.user.contents} />
+                    <UserContentList contents={this.props.user.contents} user={this.props.user.user.e_mail} />
                   </Grid.Row>
-                  <Grid.Row stretched style={{height: '50%'}}></Grid.Row>
                 </Grid.Column>
               </Grid.Row>
             </Grid>

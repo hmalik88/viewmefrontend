@@ -20,7 +20,7 @@ export default class EditContentForm extends React.Component {
       <Form className='edit-form' onSubmit={e => this.props.handleEdit(e, this.state)}>
         <Form.Field inline width={16}>
           <label>Edit Name &nbsp; &nbsp; &nbsp;</label>
-          <input onChange={this.handleChange} id="name" type="text" name="name" value={this.state.name} className='edit-input' placeHolder={name} />
+          <input onChange={this.handleChange} id="name" type="text" name="name" value={this.state.name} className='edit-input' placeholder={name} />
         </Form.Field>
         <Form.Field inline width={16}>
           <label>Edit Channel</label>

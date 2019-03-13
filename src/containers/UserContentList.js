@@ -1,16 +1,16 @@
 import React from 'react'
 import UserContentCard from '../components/UserContentCard'
-import { List } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 export default class UserContentList extends React.Component {
   render() {
     let userContent = this.props.contents.map(content => {
-      return <UserContentCard key={content.id} content={content} />
+      return <UserContentCard key={content.id} content={content} user={this.props.user} />
     })
     return(
-        <List padded='true' celled horizontal>
+        <Card.Group itemsPerRow={3}>
           {userContent}
-        </List>
+        </Card.Group>
       )
     }
 }
