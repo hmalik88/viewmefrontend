@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, Icon} from 'semantic-ui-react'
+import { Form, Button, Icon, Message} from 'semantic-ui-react'
 import '../scss/EditContent.scss'
 
 export default class EditContentForm extends React.Component {
@@ -26,6 +26,8 @@ export default class EditContentForm extends React.Component {
           <label>Edit Channel</label>
           <input onChange={this.handleChange} name="channel" id="channel" type="text" value={this.state.channel} placeholder={channel} className='edit-input' />
         </Form.Field>
+        <Message success header='File uploaded' content='Your file has been uploaded successfully' />
+        <Message error header='Action Forbidden' content='An error occurred during the upload process' />
         <Button icon size='massive' className='edit-button'>
           <Icon size='large' name='edit'/><div className='edit-content'>Edit Content</div>
         </Button>

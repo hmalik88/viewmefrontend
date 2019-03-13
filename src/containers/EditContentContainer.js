@@ -20,11 +20,17 @@ export default class EditContentContainer extends React.Component {
   handleEdit = (e, state) => {
     e.preventDefault()
     e.persist()
-    let classList = [...e.target[2].classList]
-    if (classList.includes('negative')) {
+    let buttonClassList = [...e.target[2].classList]
+    let formClassList = [...e.target.classList]
+    if (buttonClassList.includes('negative')) {
       e.target[2].classList.remove('negative')
-    } else if (classList.includes('positive')) {
+    } else if (buttonClassList.includes('positive')) {
       e.target[2].classList.remove('positive')
+    }
+    if (formClassList.includes('success')) {
+      e.target.classList.remove('success')
+    } else if (formClassList.includes('error')) {
+      e.target.classList.remove('error')
     }
     e.target.classList.add('loading')
     let content = {content: state}
@@ -48,10 +54,12 @@ export default class EditContentContainer extends React.Component {
     })
     .then(json => {
       e.target.classList.remove('loading')
+      e.target.classList.add('success')
       e.target[2].classList.add('positive')
     })
     .catch(error => {
       e.target.classList.remove('loading')
+      e.target.classList.add('error')
       e.target[2].classList.add('negative')
     })
   }

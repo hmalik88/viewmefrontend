@@ -11,11 +11,17 @@ export default class UploadContentContainer extends React.Component {
   handleUpload = (e, state)  => {
     e.preventDefault()
     e.persist()
-    let classList = [...e.target[3].classList]
-    if (classList.includes('negative')) {
+    let buttonClassList = [...e.target[3].classList]
+    let formClassList = [...e.target.classList]
+    if (buttonClassList.includes('negative')) {
       e.target[3].classList.remove('negative')
-    } else if (classList.includes('positive')) {
+    } else if (buttonClassList.includes('positive')) {
       e.target[3].classList.remove('positive')
+    }
+    if (formClassList.includes('success')) {
+      e.target.classList.remove('success')
+    } else if (formClassList.includes('error')) {
+      e.target.classList.remove('error')
     }
     e.target.classList.add('loading')
     const data = new FormData();
@@ -42,10 +48,12 @@ export default class UploadContentContainer extends React.Component {
     })
     .then(json => {
       e.target.classList.remove('loading')
+      e.target.classList.add('success')
       e.target[3].classList.add('positive')
     })
     .catch(error => {
       e.target.classList.remove('loading')
+      e.target.classList.add('error')
       e.target[3].classList.add('negative')
     })
   }
