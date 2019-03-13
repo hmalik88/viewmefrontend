@@ -25,7 +25,7 @@ export default class UserContentContainer extends React.Component {
                     <h1>Your Content</h1>
                   </Grid.Row>
                   <Grid.Row stretched style={{height: '97.5%'}}>
-                    <Link to="/dashboard/content/upload">Upload Content</Link><br/><br/>
+                    <Link to="/dashboard/content/upload"><h3>Upload Content</h3></Link><br/>
                     <UserContentList contents={this.props.user.contents} user={this.props.user.user.e_mail} />
                   </Grid.Row>
                 </Grid.Column>

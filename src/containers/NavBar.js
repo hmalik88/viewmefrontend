@@ -6,6 +6,7 @@ export default class NavBar extends Component {
   state = { visible: false }
 
   handleNavClick = () => this.setState({visible: !this.state.visible})
+
   handleSidebarHide = () => this.setState({ visible: false })
 
   logOut = () => {
@@ -20,7 +21,7 @@ export default class NavBar extends Component {
       <div>
           <div className="icon-box">
           <Icon size='large' name='list' onClick={this.handleNavClick} />
-            <strong>vM</strong>
+            <strong>v M</strong>
           <br/>
           <br/>
           </div>

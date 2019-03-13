@@ -42,19 +42,19 @@ export default class CreateUserForm extends React.Component {
         </Form.Group>
         <Form.Field>
           <label>E-mail</label>
-          <input onChange={this.handleChange} id="e_mail" type="text" value={e_mail} />
+          <Form.Input onChange={this.handleChange} id="e_mail" type="text" value={e_mail} placeholder='E-mail' />
         </Form.Field>
         <Form.Field>
           <label>Password</label>
-          <input onChange={this.handleChange} id="password" type="password" value={password} />
+          <Form.Input onChange={this.handleChange} id="password" type="password" value={password} placeholder='Your password' />
         </Form.Field>
         <Form.Field>
           <label>Address Line 1</label>
-          <input onChange={this.handleChange} id="address_line_1" type="text" value={address_line_1} />
+          <Form.Input onChange={this.handleChange} id="address_line_1" type="text" value={address_line_1} placeholder='Address Line 1'/>
         </Form.Field>
         <Form.Field>
           <label>Address Line 2</label>
-          <input onChange={this.handleChange} id="address_line_2" type="text" value={address_line_2} />
+          <Form.Input onChange={this.handleChange} id="address_line_2" type="text" value={address_line_2} placeholder='Address Line 2'/>
         </Form.Field>
         <Form.Group widths='equal'>
           <Form.Input fluid onChange={this.handleChange} label='Unit' id="unit" placeholder='Unit' value={unit}/>

@@ -29,8 +29,8 @@ export default class DashboardContainer extends React.Component {
               <h1>Dashboard</h1>
             </Grid.Row>
             <Grid.Row style={{height: '75%'}}>
-             <Link to="/favorites">Favorite Videos</Link><br/>
-             <Link to="/dashboard/content">Your Content</Link>
+             <Link to="/favorites"><h3>Favorite Videos</h3></Link><br/>
+             <Link to="/dashboard/content"><h3>Your Content</h3></Link>
             </Grid.Row>
           </Grid.Column>
           <Grid.Column width={5}></Grid.Column>

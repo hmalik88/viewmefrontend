@@ -17,19 +17,17 @@ export default class LoginForm extends React.Component {
   render() {
     const {e_mail, password} = this.state
     return(
-      <div>
-        <Form onSubmit={(e) => this.props.handleLogin(e, this.state)}>
-          <Form.Field>
-            <label>E-Mail</label>
-            <input onChange={this.handleChange} name="e_mail" type="text" value={e_mail} />
+        <Form className='login-form' onSubmit={(e) => this.props.handleLogin(e, this.state)}>
+          <Form.Field inline width={16}>
+            <label>E-mail &nbsp; &nbsp; &nbsp; &nbsp;</label>
+            <input className='login-input' onChange={this.handleChange} name="e_mail" type="text" value={e_mail} placeholder='E-mail'/>
           </Form.Field>
-          <Form.Field>
+          <Form.Field inline width={16}>
             <label>Password</label>
-            <input onChange={this.handleChange} name="password" type="password" value={password} />
+            <input className='login-input' onChange={this.handleChange} name="password" type="password" value={password} placeholder='Your password'/>
           </Form.Field>
-          <Button type="submit">Log In</Button>
+          <Button className='login-button' type="submit">Log In</Button>
         </Form>
-      </div>
       )
   }
 }

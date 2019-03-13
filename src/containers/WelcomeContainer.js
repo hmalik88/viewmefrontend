@@ -12,26 +12,19 @@ export default class WelcomeContainer extends React.Component {
             <NavBar />
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column textAlign='center' width={4}>
-            <Grid.Row style={{height: '25%'}}>
+          <Grid.Column textAlign='center' width={6}>
+            <Grid.Row style={{height: '20%'}}>
               <h1>ViewMe</h1>
             </Grid.Row>
             <Grid.Row style={{height: '20%'}}>
               <p>Welcome to ViewMe! ViewMe is a content streaming service providing video content for users. You can upload content directly to the cloud, have access to that content and search for content!
               </p>
             </Grid.Row>
-            <Grid.Row style={{height: '20%'}}>
-              <Grid.Column width={2}>
-                {localStorage.token !== undefined ? (null) : (<Link to="/login"><Button>Login</Button></Link>)} <Link to="/signup"><Button>Sign Up</Button></Link>
-              </Grid.Column>
-              <Grid.Column width={2}>
-
-              </Grid.Column>
+            <Grid.Row style={{height: '60%'}}>
+              {localStorage.token !== undefined ? (null) : (<Link to="/login"><Button>Login</Button></Link>)} <Link to="/signup"><Button>Sign Up</Button></Link>
             </Grid.Row>
-            <Grid.Row style={{height: '35%'}}></Grid.Row>
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={2}></Grid.Column>
         </Grid.Row>
       </Grid>
       )

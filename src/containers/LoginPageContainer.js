@@ -2,6 +2,7 @@ import React from 'react'
 import LoginForm from '../components/LoginForm'
 import { Grid } from 'semantic-ui-react'
 import NavBar from './NavBar'
+import '../scss/Login.scss'
 
 export default class LoginPageContainer extends React.Component {
 
@@ -13,16 +14,15 @@ export default class LoginPageContainer extends React.Component {
             <NavBar />
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column textAlign='center' width={4}>
-            <Grid.Row style={{height: '25%'}}>
-              <h1>Log In!</h1>
+          <Grid.Column textAlign='left' width={6}>
+            <Grid.Row style={{height: '20%'}}>
+              <h1 className="login-headertxt">Log In</h1>
             </Grid.Row>
-            <Grid.Row style={{height: '75%'}}>
-             <LoginForm handleLogin={this.props.handleLogin} />
+            <Grid.Row style={{height: '80%'}}>
+              <div><LoginForm handleLogin={this.props.handleLogin} /></div>
             </Grid.Row>
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column width={2}></Grid.Column>
         </Grid.Row>
       </Grid>
       )
