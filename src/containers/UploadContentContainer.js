@@ -62,9 +62,9 @@ export default class UploadContentContainer extends React.Component {
             <NavBar />
           </Grid.Column>
           <Grid.Column width={4}></Grid.Column>
-          <Grid.Column className='content-column form_column' textAlign='left' width={6}>
+          <Grid.Column textAlign='left' width={6}>
             <Grid.Row style={{height: '20%'}}>
-              <h1 className="headertxt">Upload Content</h1>
+              <h1 className="upload-headertxt">Upload Content</h1>
             </Grid.Row>
             <Grid.Row style={{height: '80%'}}>
               {this.props.user ? (<UploadForm handleUpload={this.handleUpload} />) : (this.getUser()) }

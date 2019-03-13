@@ -1,28 +1,32 @@
-.upload-button {
-  margin-left: 25px !important;
+.edit-button {
+  margin-left: 40px !important;
 }
 
-.upload-form {
+.edit-form {
   display: flex;
   flex-flow: row wrap;
   justify-content:  center;
 }
 
-.upload-headertxt {
+.edit-headertxt {
   text-align: center;
+
 }
 
-.upload-input {
-  width: 70% !important;
-
+.edit-input {
+  width: 62.5% !important;
 }
 
 label {
   margin-left: 10px !important;
   }
 
-.upload-content {
+.edit-content {
   float: right;
   padding-left: 10px;
   padding-top: 5px;
 }
+
+// .edit-div {
+//   padding-right: 10px;
+// }

@@ -2,6 +2,7 @@ import React from 'react'
 import EditContentForm from '../components/EditContentForm'
 import NavBar from './NavBar'
 import { Grid } from 'semantic-ui-react'
+import '../scss/EditContent.scss'
 
 export default class EditContentContainer extends React.Component {
 
@@ -18,11 +19,15 @@ export default class EditContentContainer extends React.Component {
 
   handleEdit = (e, state) => {
     e.preventDefault()
+    e.persist()
+    let classList = [...e.target[2].classList]
+    if (classList.includes('negative')) {
+      e.target[2].classList.remove('negative')
+    } else if (classList.includes('positive')) {
+      e.target[2].classList.remove('positive')
+    }
+    e.target.classList.add('loading')
     let content = {content: state}
-    this.updateContent(content)
-  }
-
-  updateContent = content => {
     let videoID = this.props.props.location.pathname.split('/')[4]
     let token = localStorage.getItem("token")
     fetch(`http://localhost:3000/api/v1/content/${videoID}`, {
@@ -33,9 +38,22 @@ export default class EditContentContainer extends React.Component {
       },
       body: JSON.stringify(content.content)
     })
-    .then(res => res.json())
-    .then(json => console.log(json))
-    // .then(json => console.lcsg(json))
+    .then(res => {
+      if (res.ok) {
+        console.log(res.ok)
+        return res.json()
+      } else {
+        throw new Error('Edit didn\'t go through!')
+      }
+    })
+    .then(json => {
+      e.target.classList.remove('loading')
+      e.target[2].classList.add('positive')
+    })
+    .catch(error => {
+      e.target.classList.remove('loading')
+      e.target[2].classList.add('negative')
+    })
   }
 
  fetchUserContent = (userId) => {
@@ -68,27 +86,27 @@ export default class EditContentContainer extends React.Component {
       </React.Fragment>
 
     return(
-      <Grid padded container style={{height: '100vh'}}>
-        <Grid.Row stretched style={{height: '100%'}}>
-          <Grid.Column textAlign='center' width={2}>
-            <NavBar />
-          </Grid.Column>
-          <Grid.Column width={5}></Grid.Column>
-          <Grid.Column textAlign='center' width={4}>
-            <Grid.Row style={{height: '15%'}}>
-              <h1>Edit Content</h1>
-            </Grid.Row>
-            <Grid.Row style={{height: '85%'}}>
-              {this.props.user ? (
-                <div>
-                  {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
-                </div>
-                ) : (this.getUser())}
-            </Grid.Row>
-          </Grid.Column>
-          <Grid.Column width={5}></Grid.Column>
-        </Grid.Row>
-      </Grid>
+    <Grid padded container style={{height: '100vh'}}>
+      <Grid.Row stretched style={{height: '100%'}}>
+        <Grid.Column textAlign='center' width={2}>
+          <NavBar />
+        </Grid.Column>
+        <Grid.Column width={4}></Grid.Column>
+        <Grid.Column textAlign='left' width={6}>
+          <Grid.Row style={{height: '20%'}}>
+            <h1 className="edit-headertxt">Edit Content</h1>
+          </Grid.Row>
+          <Grid.Row style={{height: '80%'}}>
+            {this.props.user ? (
+              <div>
+                {this.state.content ? (<div className="edit-div">{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
+              </div>
+              ) : (this.getUser())}
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={4}></Grid.Column>
+      </Grid.Row>
+    </Grid>
       )
   }
 }
