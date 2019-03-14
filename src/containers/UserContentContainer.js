@@ -13,7 +13,7 @@ export default class UserContentContainer extends React.Component {
   render() {
     console.log(this.props.user)
     return(
-      <div>
+      <>
         {this.props.user ? (
            <Grid padded doubling container style={{height: '100vh'}}>
               <Grid.Row stretched style={{height: '100%'}}>
@@ -32,7 +32,7 @@ export default class UserContentContainer extends React.Component {
               </Grid.Row>
             </Grid>
           ) : (this.getUser())}
-      </div>
+      </>
       )
   }
 }

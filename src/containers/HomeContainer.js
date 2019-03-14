@@ -34,27 +34,27 @@ export default class HomeContainer extends React.Component {
     console.log(this.props.user)
     console.log(this.state.contents)
     return(
-      <div>
+      <>
         {this.props.user ? (
-          <div>
-          {this.state.contents.length > 0 ? (
-            <>
-            <Grid padded container style={{height: '100vh', width: '12.5vh'}}>
-              <Grid.Row stretched style={{height: '100%'}}>
-                <Grid.Column textAlign='center' width={2}>
-                  <NavBar />
-                </Grid.Column>
-                <Grid.Column width={14}>
+          <Grid padded container style={{height: '100vh'}}>
+            <Grid.Row stretched style={{height: '100%'}}>
+              <Grid.Column textAlign='center' width={2}>
+                <NavBar />
+              </Grid.Column>
+              <Grid.Column width={14}>
+                <Grid.Row stretched style={{height: '3%'}}>
                  <h1 id="welcome">Welcome Home {this.props.user.user.first_name}!</h1>
+                </Grid.Row>
+                <Grid.Row stretched style={{height: '97%'}}>
+                 {this.state.contents.length > 0 ? (
                  <ChannelsList contents={this.state.contents} />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-              </>
-            ) : (this.fetchContent())}
-          </div>
+                 ) : (this.fetchContent())}
+                </Grid.Row>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           ): (this.getUser())}
-      </div>
+      </>
       )
   }
 }

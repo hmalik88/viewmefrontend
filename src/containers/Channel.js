@@ -16,13 +16,13 @@ export default class Channel extends React.Component {
       return <ContentCard key={content.id} content={content} />
   })
     return(
-      <div>
+      <>
         <h2>{this.props.channel}</h2>
         <Card.Group itemsPerRow={3}>
           {content}
         </Card.Group>
         <br/>
-      </div>
+      </>
       )
   }
 }

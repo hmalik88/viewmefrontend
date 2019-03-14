@@ -35,7 +35,7 @@ export default class ContentCard extends React.Component {
 
   render() {
     return(
-      <Card fluid>
+      <Card stackable='true' fluid>
         <Card.Content>
         <Link to={`/watch/${this.props.content.id}`}>
         <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} muted width="192px" height="108px">
@@ -43,7 +43,7 @@ export default class ContentCard extends React.Component {
         </video>
         <Icon size='big' style={{opacity: 0.7}} className='play-icon' name='play' color='red' />
         </Link>
-        <Card.Header>{this.props.content.name}</Card.Header>
+        <Card.Header className='card-header'>{this.props.content.name}</Card.Header>
         <Card.Meta>Uploaded by: {this.props.content.user}</Card.Meta>
         </Card.Content>
       </Card>

@@ -40,7 +40,7 @@ export default class FavoriteContentCard extends React.Component {
         </video>
         <Icon size='big' style={{opacity: 0.7}} className='play-icon' name='play' color='red' />
         </Link>
-        <Card.Header>{this.props.favorite.name}</Card.Header>
+        <Card.Header className='card-header'>{this.props.favorite.name}</Card.Header>
         <Card.Meta>Uploaded by: {this.props.email}</Card.Meta>
         </Card.Content>
       </Card>

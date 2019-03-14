@@ -23,9 +23,9 @@ export default class ChannelsList extends React.Component {
       return <Channel key={channel} content={this.props.contents} channel={channel} />
   })
     return(
-      <div>
+      <>
         {channels}
-      </div>
+      </>
       )
   }
 }

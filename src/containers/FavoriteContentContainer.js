@@ -16,7 +16,7 @@ export default class FavoriteContentContainer extends React.Component {
   render() {
     console.log(this.props.user)
     return(
-      <div>
+      <>
       {this.props.user ? (
         <Grid padded container style={{height: '100vh', width: '12.5vh'}}>
           <Grid.Row stretched style={{height: '100%'}}>
@@ -34,7 +34,7 @@ export default class FavoriteContentContainer extends React.Component {
           </Grid.Row>
         </Grid>
         ) : (this.getUser())}
-      </div>
+      </>
       )
   }
 }
