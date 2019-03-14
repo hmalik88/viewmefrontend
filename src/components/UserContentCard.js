@@ -59,7 +59,7 @@ export default class UserContentCard extends React.Component {
         <source src={this.props.content.url} type="video/mp4" />
         </video>
         <Icon size='big' style={{opacity: 0.7}} className='user-content-play-icon' name='play' color='red' />
-        <Card.Header>{this.props.content.name}</Card.Header>
+        <Card.Header className='card-header'>{this.props.content.name}</Card.Header>
         <Card.Meta>Uploaded by: {this.props.user}</Card.Meta>
        </Card.Content>
        <Card.Content extra>

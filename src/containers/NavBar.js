@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Icon, Menu, Container, Sidebar } from 'semantic-ui-react'
-import '../scss/NavBar.scss'
 
 export default class NavBar extends Component {
   state = { visible: false }
@@ -19,7 +18,7 @@ export default class NavBar extends Component {
 
     return (
       <div>
-          <div className="icon-box">
+          <div>
           <Icon size='large' name='list' onClick={this.handleNavClick} />
             <strong>v M</strong>
           <br/>

@@ -6,6 +6,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content:  center;
+  left: -2.5% !important;
 }
 
 .edit-headertxt {
@@ -26,7 +27,3 @@ label {
   padding-left: 10px;
   padding-top: 5px;
 }
-
-// .edit-div {
-//   padding-right: 10px;
-// }

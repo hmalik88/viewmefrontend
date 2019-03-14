@@ -107,7 +107,7 @@ export default class EditContentContainer extends React.Component {
           <Grid.Row style={{height: '80%'}}>
             {this.props.user ? (
               <div>
-                {this.state.content ? (<div className="edit-div">{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
+                {this.state.content ? (<div>{EditContent}</div>) : (this.fetchUserContent(this.props.user.user.id))}
               </div>
               ) : (this.getUser())}
           </Grid.Row>
