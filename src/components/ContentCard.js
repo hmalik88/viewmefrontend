@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, Icon } from 'semantic-ui-react'
 import '../scss/ContentCard.scss'
 
-
 export default class ContentCard extends React.Component {
-
-
 
   handleUpdate = e => {
     let currentTime = e.target.currentTime;
@@ -16,14 +13,14 @@ export default class ContentCard extends React.Component {
   }
 
   handlePlay = e => {
-      // for when it becomes socially acceptable to suprise people with music =D
-      // if (this.props.content.channel === 'Music') {
-      //   e.target.muted = false;
-      // }
-      let icon = e.target.nextElementSibling;
-      icon.classList.add("hide-icon");
-      e.target.currentTime = 5.0;
-      e.target.play();
+    // for when it becomes socially acceptable to suprise people with music =D
+    // if (this.props.content.channel === 'Music') {
+    //   e.target.muted = false;
+    // }
+    let icon = e.target.nextElementSibling;
+    icon.classList.add("hide-icon");
+    e.target.currentTime = 5.0;
+    e.target.play();
   }
 
   handlePause = e => {
@@ -34,8 +31,9 @@ export default class ContentCard extends React.Component {
   }
 
   render() {
+    console.log('card', this.props.content.id)
     return(
-      <Card stackable='true' fluid>
+      <Card stackable fluid>
         <Card.Content>
         <Link to={`/watch/${this.props.content.id}`}>
         <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} muted width="192px" height="108px">

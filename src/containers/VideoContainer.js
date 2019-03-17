@@ -1,10 +1,13 @@
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
-import Icon from '@material-ui/core/Icon'
+import { Grid, Card } from 'semantic-ui-react'
+import NavBar from './NavBar'
+import ContentCard from '../components/ContentCard'
 
 export default class VideoContainer extends React.Component {
   constructor(props) {
     super(props)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     let contentID = this.props.props.location.pathname.split('/')[2]
     this.state = {
       contentID: contentID,
@@ -13,7 +16,8 @@ export default class VideoContainer extends React.Component {
       uploader: '',
       favorite: '',
       favoriteID: '',
-      user: this.props.user
+      user: this.props.user,
+      sideBarContent: []
     }
   }
 
@@ -93,31 +97,107 @@ export default class VideoContainer extends React.Component {
 
   }
 
+  fetchSidebarContent = () => {
+    fetch('http://localhost:3000/api/v1/content', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(json => {
+      let videosToPick = this.randomIntsFromRange(0, json.length-1, json)
+      let content = []
+      videosToPick.forEach(video => content.push(json[video]))
+      this.setState({sideBarContent: content})
+      console.log(this.state.sideBarContent)
+    })
+  }
+
+  randomIntsFromRange = (min, max, json) => {
+    let randomInts = []
+    let num;
+    while (randomInts.length < 6) {
+      num = Math.floor(Math.random() * (max-min+1)+min);
+      if (!randomInts.includes(num) && json[num].name !== this.state.name) {
+        randomInts.push(num)
+      }
+    }
+    return randomInts
+  }
+
+
   componentDidMount() {
     let contentID = this.props.props.location.pathname.split('/')[2]
     if (this.props.user === null) {
       this.props.getUser()
       .then(this.fetchContent(contentID))
+      .then(this.fetchSidebarContent())
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    if (contentID !== prevState.contentID) {
+      this.props.getUser()
+      .then(this.fetchContent(contentID))
+      .then(this.fetchSidebarContent())
+      .then(this.setState({contentID: contentID}))
     }
   }
 
   render() {
     console.log(this.state.favorite)
+    let contentID = this.props.props.location.pathname.split('/')[2]
+    let contentArr = [];
+    if (this.state.sideBarContent.length > 0) {
+      this.state.sideBarContent.forEach(content => {
+        contentArr.push(<ContentCard key={content.id} content={content} />)
+      })
+    } else {
+        this.fetchSidebarContent()
+    }
+
     return(
-      <div id="video">
-        {this.state.url ? (
-          <>
-          <VideoPlayer src={this.state.url} />
-          <br/>
-          <h3>{this.state.name}</h3>
-          <h4>Uploaded by: {this.state.uploader}</h4>
-          {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? (<button onClick={this.deleteFavorite}>Unfavorite</button>) : (<button onClick={this.addFavorite}>Favorite</button>) }
-            <br/>
-          <Icon>star</Icon>
-          </>) : (
-            this.fetchContent(this.state.contentID)
-          )}
-      </div>
+      <Grid padded container style={{height: '100vh', width: '100vw'}}>
+        <Grid.Row stretched style={{height: '100%'}}>
+          <Grid.Column textAlign='center' width={2}>
+            <NavBar />
+          </Grid.Column>
+          <Grid.Column textAlign='left' width={10}>
+            <Grid.Row style={{height: '4%'}}>
+              <h1>View Me</h1>
+            </Grid.Row>
+            <Grid.Row stretched style={{height: '96%'}}>
+              {this.state.url ? (
+                <>
+                  <VideoPlayer src={this.state.url} />
+                  <h2>{this.state.name}</h2>
+                  <h4>Uploaded by: {this.state.uploader}</h4>
+                  {this.checkIfFavorite(this.props.props.location.pathname.split('/')[2]) ? (<button onClick={this.deleteFavorite}>Unfavorite</button>) : (<button onClick={this.addFavorite}>Favorite</button>) }
+                </>) : (
+                this.fetchContent(contentID)
+              )}
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column></Grid.Column>
+          <Grid.Column stretched textAlign='left' width={3}>
+            <Grid.Row stretched style={{height: '4%'}}>
+            </Grid.Row>
+            <Grid.Row stretched style={{height: '96%'}}>
+              <h3>Next video up:</h3>
+              {this.state.sideBarContent.length > 0 ? (
+                <Card.Group fluid itemsPerRow={1}>
+                  {contentArr}
+                </Card.Group>
+                ) : (this.fetchSidebarContent())}
+            </Grid.Row>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+
       )
   }
 }
