@@ -49,13 +49,17 @@ export default class UserContentCard extends React.Component {
     e.target.pause()
   }
 
+  handleLoad = (e) => {
+    e.target.currentTime = 5.0;
+  }
+
   render() {
     let videoID = this.props.content.id
     let newTo = { pathname: `/dashboard/content/edit/${videoID}`}
     return(
       <Card fluid id={videoID}>
        <Card.Content>
-        <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} muted width="192px" height="108px">
+        <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} onLoadedMetadata={this.handleLoad} muted width="192px" height="108px">
         <source src={this.props.content.url} type="video/mp4" />
         </video>
         <Icon size='big' style={{opacity: 0.7}} className='user-content-play-icon' name='play' color='red' />

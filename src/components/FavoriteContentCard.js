@@ -30,12 +30,16 @@ export default class FavoriteContentCard extends React.Component {
     e.target.pause()
   }
 
+  handleLoad = (e) => {
+    e.target.currentTime = 5.0;
+  }
+
  render() {
     return(
       <Card fluid>
         <Card.Content>
         <Link to={`/watch/${this.props.favorite.content_id}`}>
-        <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} muted width="192px" height="108px">
+        <video onTimeUpdate={this.handleUpdate} onMouseOver={this.handlePlay} onMouseLeave={this.handlePause} onLoadedMetadata={this.handleLoad} muted width="192px" height="108px">
           <source src={this.props.favorite.url} type="video/mp4" />
         </video>
         <Icon size='big' style={{opacity: 0.7}} className='play-icon' name='play' color='red' />

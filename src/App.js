@@ -90,7 +90,7 @@ class App extends Component {
           <Route path="/dashboard" render={() => <DashboardContainer user={this.state.user} getUser={this.getUser} />} />
           <Route path="/signup" render={props => <CreateUserContainer props={props} />} />
           <Route path="/login" render={() => <LoginPageContainer handleLogin={this.handleLogin} />} />
-          <Route path="/home" render={() => <HomeContainer user={this.state.user} getUser={this.getUser} />} />
+          <Route path="/home" render={() => <HomeContainer user={this.state.user} getUser={this.getUser} {...this.props} />} />
           <Route path="/" component={WelcomeContainer} />
         </Switch>
       </div>

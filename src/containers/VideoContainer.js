@@ -1,8 +1,9 @@
 import React from 'react'
 import VideoPlayer from '../components/VideoPlayer'
-import { Grid, Card } from 'semantic-ui-react'
+import { Grid, Card, Search } from 'semantic-ui-react'
 import NavBar from './NavBar'
 import ContentCard from '../components/ContentCard'
+import '../scss/Search.scss'
 
 export default class VideoContainer extends React.Component {
   constructor(props) {
@@ -17,6 +18,9 @@ export default class VideoContainer extends React.Component {
       favorite: '',
       favoriteID: '',
       user: this.props.user,
+      contents: [],
+      results: [],
+      value: '',
       sideBarContent: []
     }
   }
@@ -110,6 +114,7 @@ export default class VideoContainer extends React.Component {
       let videosToPick = this.randomIntsFromRange(0, json.length-1, json)
       let content = []
       videosToPick.forEach(video => content.push(json[video]))
+      this.setState({contents: json})
       this.setState({sideBarContent: content})
       console.log(this.state.sideBarContent)
     })
@@ -148,6 +153,19 @@ export default class VideoContainer extends React.Component {
     }
   }
 
+  handleSearchChange = (e, {value}) => {
+    this.setState({value: value})
+    let results = this.state.contents.filter(content => {
+      return content.name.split(' ').includes(value) || content.channel === value
+    })
+    this.setState({results: results})
+  }
+
+  handleSelect = (e, data) => {
+    this.setState({value: ''})
+    this.props.props.history.push(`/watch/${data.result.id}`)
+  }
+
   render() {
     console.log(this.state.favorite)
     let contentID = this.props.props.location.pathname.split('/')[2]
@@ -159,7 +177,12 @@ export default class VideoContainer extends React.Component {
     } else {
         this.fetchSidebarContent()
     }
-
+    const resRender = ({name, channel, url}) => (
+    <span id="name">
+      {name} - {channel}
+    </span>
+    );
+    const {value, results } = this.state
     return(
       <Grid padded container style={{height: '100vh', width: '100vw'}}>
         <Grid.Row stretched style={{height: '100%'}}>
@@ -167,10 +190,20 @@ export default class VideoContainer extends React.Component {
             <NavBar />
           </Grid.Column>
           <Grid.Column textAlign='left' width={10}>
-            <Grid.Row style={{height: '4%'}}>
-              <h1>View Me</h1>
+            <Grid.Row stretched style={{height: '6%'}}>
+              <h1 id='view-me-watch'>View Me</h1>
+              <Search
+                results={results}
+                resultRenderer={resRender}
+                searchFullText={true}
+                onSearchChange={this.handleSearchChange}
+                onResultSelect={this.handleSelect}
+                value={value}
+                placeholder='Search...'
+                className='video-search'
+                size='large' />
             </Grid.Row>
-            <Grid.Row stretched style={{height: '96%'}}>
+            <Grid.Row stretched style={{height: '94%'}}>
               {this.state.url ? (
                 <>
                   <VideoPlayer src={this.state.url} />
