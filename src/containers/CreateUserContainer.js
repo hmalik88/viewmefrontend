@@ -23,7 +23,6 @@ export default class CreateUserContainer extends React.Component {
 
 
   render() {
-    console.log("CREATE USER MOUNTED")
     return(
      <Grid padded container style={{height: '100vh'}}>
       <Grid.Row stretched style={{height: '100%'}}>

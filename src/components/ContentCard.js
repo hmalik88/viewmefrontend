@@ -35,7 +35,6 @@ export default class ContentCard extends React.Component {
   }
 
   render() {
-    console.log('card', this.props.content.id)
     return(
       <Card stackable fluid>
         <Card.Content>

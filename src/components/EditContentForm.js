@@ -13,7 +13,6 @@ export default class EditContentForm extends React.Component {
   }
 
   render() {
-    console.log(this.props.content)
     let channel = this.props.content[0].channel
     let name = this.props.content[0].name
     return(

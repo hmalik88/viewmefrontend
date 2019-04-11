@@ -87,7 +87,6 @@ export default class EditContentContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.content)
     let EditContent =
       <React.Fragment>
         <EditContentForm handleEdit={this.handleEdit} content={this.state.content} />

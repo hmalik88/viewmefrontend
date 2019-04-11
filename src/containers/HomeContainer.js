@@ -45,8 +45,6 @@ export default class HomeContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.user)
-    console.log(this.state.contents)
     const resRender = ({name, channel, url}) => (
       <span id="name">
         {name} - {channel}

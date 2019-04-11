@@ -16,7 +16,6 @@ export default class DashboardContainer extends React.Component {
   }
 
   render() {
-    console.log("DASH", this.props.user )
     return(
       <Grid padded container style={{height: '100vh'}}>
         <Grid.Row stretched style={{height: '100%'}}>

@@ -167,7 +167,6 @@ export default class VideoContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.favorite)
     let contentID = this.props.props.location.pathname.split('/')[2]
     let contentArr = [];
     if (this.state.sideBarContent.length > 0) {
